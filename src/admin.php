@@ -35,7 +35,7 @@
 </head>
 <body class="bdlogin">
     <div class="form-container">
-        <h1 class="judullogin">Login Admin Alonica</h1>
+        <h1 class="judullogin">Login Admin</h1>
         <form onsubmit="return validateLogin()">
             <label for="gmail">Gmail:</label><br>
             <input type="email" id="gmail" name="gmail" required><br><br>

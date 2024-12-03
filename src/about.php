@@ -1,3 +1,13 @@
+<?php
+// Koneksi ke database
+include('koneksi.php');
+
+// Query untuk mengambil data dari tabel 'about'
+$sql = "SELECT gambarabout, keterangan FROM about";
+$result = mysqli_query($conn, $sql);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +15,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tentang Alonica</title>
+    <style>
+        /* Styling untuk card */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+            border-radius: 20px;
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+
+        .card {
+            width: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            padding-bottom: 5%;
+        }
+
+        .card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            background-color: #ffffff;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .card-content h1 {
+           text-align: center;
+            font-size: 1.25rem;
+            color: #800000;
+            font-family: "Happy Times Two";
+            margin-bottom: 10px;
+        }
+
+        /* Hover effect */
+        .card:hover {
+            transform: translateY(-10px);
+        }
+    </style>
     <link rel="stylesheet" href="./output.css">
 </head>
 
@@ -44,7 +101,7 @@
                     </li>
                     <li>
                         <a href="admin.php"
-                            class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-yellow-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Login Admin</a>
+                            class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-yellow-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Login</a>
                     </li>
                 </ul>
             </div>
@@ -69,52 +126,29 @@
             <hr>
         </div>
 
-        <div class="dua">
-            <div class="fasil">
-                <img  class="img" src="makanminum'.png" alt="Makanan dan Minuman" width="40%">
-                <h1 class="fitur"> Makanan dan Minuman <br> Dijamin Nagih </h1>
+        <div class="card-container">
+            <?php
+            if (mysqli_num_rows($result) > 0) {
+                // Loop untuk menampilkan setiap row dalam card
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "
+                <div class='card'>
+                <img src='{$row['gambarabout']}' alt='Gambar'>
+                <div class='card-content'>
+                    <h1>{$row['keterangan']}</h1>
+                </div>
             </div>
-            <div class="fasil">
-                <img  class="img" src="desain cozy.png" alt="Desain Cozy" width="40%">
-                <h1 class="fitur"> Desain Interior Cozy<br> Dan Instagramable </h1>
-            </div>
+            ";
+                }
+            } else {
+                echo '<p>No data found.</p>';
+            }
+            ?>
         </div>
-        <div class="garis">
-            <hr>
-        </div>
-        <div class="dua">
-            <div class="fasil">
-                <img  class="img" src="Live pekan.png" alt="Live" width="40%">
-                <h1 class="fitur">Live Music <br> Setiap Pekan </h1>
-            </div>
-            <div class="fasil">
-                <img  class="img" src="event menarik.png" alt="event" width="40%">
-                <h1 class="fitur"> Event Menarik<br> Biar Kawan Ga Bosan </h1>
-            </div>
-        </div>
-        <div class="garis">
-            <hr>
-        </div>
-        <div class="dua">
-            <div class="fasil">
-                    <img  class="img" src="umkm.png" alt="UMKM" width="40%">
-                    <h1 class="fitur">Bekerjasama Dengan <br> Banyak #KawanUMKM </h1>
-            </div>
-            <div class="fasil">
-                <img  class="img" src="board.png" alt="Board" width="40%">
-                <h1 class="fitur"> Beragam Boardgame<br>Buat Kawan Mainkan </h1>
-            </div>
-        </div>
-    </div>
-    <div class="garis">
-        <hr>
-    </div>
 
-    <div class="akhir">
-        <h1 class="end">We don't just sell products,<i> we also sell Experience</i></h1>
-    </div>
-        
-    </section>
+    
+           </section>
+
 
 
     <div class="kaki">
